@@ -1,10 +1,15 @@
 # Referral Management System (Power Platform)
 
+![Power Apps](https://img.shields.io/badge/Built%20With-Power%20Apps-blue)
+![Power Automate](https://img.shields.io/badge/Automation-Power%20Automate-green)
+![SharePoint](https://img.shields.io/badge/Data-SharePoint-orange)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
+
 A fully adaptive **Employee Referral Management System** built using **Microsoft Power Apps, SharePoint, and Power Automate**.
 
-The system allows employees to refer candidates for open roles, enables recruiters to manage referrals, and automates the entire referral lifecycle including hiring decisions and post-hire probation tracking.
+The system enables employees to refer candidates for open roles, allows recruiters and superusers to manage the referral pipeline, and automates the full lifecycle from submission to post-hire probation follow-up and reward notification.
 
-This project demonstrates how a complete internal HR workflow can be implemented using the **Microsoft Power Platform** with minimal infrastructure while maintaining scalability, automation, and role-based access control.
+This repository documents the architecture, UI, backend schema, permissions model, workflows, and deployment structure of the solution.
 
 ---
 
@@ -23,33 +28,69 @@ Employees can browse open positions, search by keyword, filter by department, in
 
 ---
 
-# System Overview
+## System Overview
 
-The system manages the complete lifecycle of employee referrals:
+The system manages the complete employee referral lifecycle:
 
 1. Employees browse open roles
 2. Employees submit referrals
 3. Recruiters review candidates
 4. Recruiters update referral status
-5. If hired, the hire date is recorded
+5. If hired, a hire date is recorded
 6. After three months, the system triggers a probation reminder
-7. HR confirms probation completion
+7. HR confirms probation completion through a companion app
 8. The referrer is notified to claim their referral reward
 
-The system consists of two Power Apps applications:
+The solution consists of two Power Apps applications:
 
-- **Referral App** – main application used by employees, recruiters, and superusers
-- **HR Confirmation App** – used to confirm successful completion of the probation period
+- **Referral App** — the main application used by employees, recruiters, and superusers
+- **HR Confirmation App** — a companion application used to confirm successful probation completion
 
 ---
 
-# System Architecture
+## Key Capabilities
+
+<p align="center">
+
+🚀 <strong>Adaptive Interface</strong><br>
+Works across desktop, tablet, and mobile with responsive layouts.
+
+<br><br>
+
+🌗 <strong>Light / Dark Mode</strong><br>
+Supports dynamic theme switching for a modern user experience.
+
+<br><br>
+
+🔐 <strong>Role-Based Access Control</strong><br>
+Employees, recruiters, and superusers each have tailored access and functionality.
+
+<br><br>
+
+⚙️ <strong>Automated Workflows</strong><br>
+Power Automate handles notifications, hiring decisions, probation tracking, and reward communication.
+
+<br><br>
+
+📊 <strong>SharePoint-Backed Data Model</strong><br>
+Uses structured SharePoint lists for postings, referrals, and access control.
+
+<br><br>
+
+🎯 <strong>End-to-End Referral Lifecycle</strong><br>
+Covers the full workflow from role discovery to referral reward notification.
+
+</p>
+
+---
+
+## System Architecture
 
 <p align="center">
   <img src="diagrams/system-architecture.png" alt="System Architecture" width="88%" />
 </p>
 
-The architecture is composed of four layers:
+The architecture is organized into four layers:
 
 ### Users
 - Employees
@@ -64,90 +105,71 @@ The architecture is composed of four layers:
 - Power Automate workflows for notifications and probation tracking
 
 ### Data Layer
-- SharePoint lists used as the system backend
+- SharePoint lists used as the backend
 
 ---
 
-# Core Features
+## Core Features
 
-## 1. Browse Open Roles
-
-Employees can browse available job postings.
-
-Features include:
+### Browse Open Roles
+Employees can browse available job postings using:
 
 - keyword search
 - department filtering
-- viewing job descriptions
-- referral submission
+- role detail inspection
+- direct referral submission
 
-## 2. Referral Submission
+### Submit Referrals
+Employees can submit candidate referrals directly through the application.
 
-Employees can refer candidates directly through the application.
+Submitted data includes:
 
-Submitted referrals include:
-
-- candidate name
-- candidate email
-- role information
+- referral name
+- referral email
+- job title
+- role ID
+- level
+- location
 - referrer information
-- supporting notes
+- supporting description
 
-Once submitted, automated workflows notify recruiters and administrators.
-
-## 3. Recruiter Hub
-
-Recruiters and superusers can manage the entire referral pipeline.
-
-Capabilities include:
+### Recruiter Hub
+Recruiters and superusers can manage the referral pipeline by:
 
 - browsing submitted referrals
 - filtering by status
-- updating referral status
+- updating candidate status
 - adding recruiter feedback
 - recording hire dates
-- reviewing candidate progress
+- collaborating through comments
 
-## 4. Role Management (Superusers)
+### Role Management
+Superusers can manage job postings directly inside the app by:
 
-Superusers can manage job postings directly from the application.
-
-Administrative actions include:
-
-- creating new roles
+- creating new postings
 - editing existing postings
 - toggling roles between open and closed
-- deleting job postings
+- deleting postings
 
-## 5. Automated Referral Lifecycle
+### Workflow Automation
+Power Automate workflows support:
 
-Power Automate workflows handle key lifecycle events:
+- new referral notification
+- decision notification
+- probation reminder
+- referral reward notification
 
-- new referral notifications
-- hiring decision notifications
-- probation tracking
-- referral reward notifications
+### Probation Confirmation
+The HR Confirmation App allows authorized users to:
 
-This automation ensures that the referral process runs with minimal manual intervention.
-
-## 6. Fully Adaptive Experience
-
-Both applications are designed to work across:
-
-- desktop
-- tablet
-- mobile
-
-The Referral App also supports:
-
-- light mode
-- dark mode
-- dynamic responsive layouts
-- orientation handling for mobile usability
+- enter a referral number
+- verify the referral state
+- confirm probation completion
+- trigger reward notification to the referrer
 
 ---
 
-# Application Screenshots
+## Application Screenshots
 
 ## Manage Roles
 
@@ -192,20 +214,20 @@ The Referral App also supports:
 
 ---
 
-# SharePoint Backend
+## SharePoint Backend
 
-The system uses SharePoint as the primary data store.
+The solution uses SharePoint as a lightweight backend for both application data and access control.
 
 ### Lists Used
 
 | List | Purpose |
-|-----|------|
+|---|---|
 | `Open_Roles` | Stores job postings |
-| `Referrals_Table` | Stores employee referrals |
+| `Referrals_Table` | Stores submitted referrals |
 | `Recruiters_cafe` | Stores recruiter email addresses |
-| `Superusers` | Stores administrative users |
+| `Superusers` | Stores superuser email addresses |
 
-The schema is documented in detail in:
+Detailed schema documentation is available in:
 
 ```text
 docs/sharepoint-schema.md
@@ -213,18 +235,19 @@ docs/sharepoint-schema.md
 
 ---
 
-# Automation Workflows
+## Automation Workflows
 
-The system uses **Power Automate** for event-driven automation.
+The system uses **Power Automate** for event-driven workflow automation.
 
-Key workflows include:
+### Workflows Included
 
 - New referral notification
 - Referral decision notification
-- Probation reminder (3 months after hire)
+- Referrer acceptance notification
+- Probation reminder after hire date
 - Referral reward notification
 
-Workflow documentation is available in:
+Detailed workflow documentation is available in:
 
 ```text
 docs/flows.md
@@ -232,24 +255,24 @@ docs/flows.md
 
 ---
 
-# Access Control
+## Permissions and Access Control
 
-The system uses role-based access control based on user email.
+The system uses dynamic role-based access control based on the current user’s email address.
 
 ### Roles
 
-| Role | Permissions |
-|----|----|
+| Role | Access |
+|---|---|
 | Employee | Browse roles and submit referrals |
-| Recruiter | Manage referrals |
-| Superuser | Full system administration |
+| Recruiter | Access Recruiter Hub and manage referrals |
+| Superuser | Full administrative and recruiter functionality |
 
-Access control is managed through SharePoint lists:
+Access is controlled through the following SharePoint lists:
 
 - `Recruiters_cafe`
 - `Superusers`
 
-Detailed documentation:
+Detailed access documentation is available in:
 
 ```text
 docs/permissions-and-access.md
@@ -257,19 +280,17 @@ docs/permissions-and-access.md
 
 ---
 
-# Deployment
+## Deployment
 
-The system can be deployed in any Microsoft 365 environment.
+The system can be recreated in another Microsoft 365 environment by:
 
-Deployment involves:
+1. creating the required SharePoint lists
+2. importing both Power Apps applications
+3. reconnecting data sources
+4. recreating the Power Automate workflows
+5. populating recruiter and superuser access lists
 
-1. Creating SharePoint lists
-2. Importing Power Apps applications
-3. Configuring data connections
-4. Setting up Power Automate workflows
-5. Populating access control lists
-
-Full deployment instructions are available here:
+Detailed deployment instructions are available in:
 
 ```text
 docs/deployment-guide.md
@@ -277,10 +298,13 @@ docs/deployment-guide.md
 
 ---
 
-# Repository Structure
+## Repository Structure
 
 ```text
 referral-management-system
+│
+├── LICENSE
+├── README.md
 │
 ├── powerapps
 │   ├── referral-app.msapp
@@ -295,36 +319,21 @@ referral-management-system
 ├── diagrams
 │   └── system-architecture.png
 │
-├── screenshots
-│   ├── open-roles-light.png
-│   ├── open-roles-dark.png
-│   ├── manage-tab-light.png
-│   ├── manage-tab-dark.png
-│   ├── recruiter-hub-light.png
-│   ├── recruiter-hub-dark.png
-│   ├── referral-form-light.png
-│   ├── referral-form-dark.png
-│   └── hr-confirmation-app.png
-│
-└── README.md
+└── screenshots
+    ├── open-roles-light.png
+    ├── open-roles-dark.png
+    ├── manage-tab-light.png
+    ├── manage-tab-dark.png
+    ├── recruiter-hub-light.png
+    ├── recruiter-hub-dark.png
+    ├── referral-form-light.png
+    ├── referral-form-dark.png
+    └── hr-confirmation-app.png
 ```
 
 ---
 
-# Security and Privacy
-
-This repository contains only:
-
-- application packages
-- schema documentation
-- architecture diagrams
-- sanitized screenshots
-
-No confidential company data, internal URLs, attachments, or employee information is included.
-
----
-
-# Technology Stack
+## Technology Stack
 
 - Microsoft Power Apps
 - Microsoft Power Automate
@@ -333,7 +342,31 @@ No confidential company data, internal URLs, attachments, or employee informatio
 
 ---
 
-# License
+## Security and Privacy
+
+This repository contains only:
+
+- application packages
+- documentation
+- architecture visuals
+- sanitized screenshots
+
+No confidential company data, internal URLs, or employee information are included.
+
+---
+
+## Documentation
+
+Additional technical documentation is available in the `docs/` folder:
+
+- `sharepoint-schema.md`
+- `flows.md`
+- `permissions-and-access.md`
+- `deployment-guide.md`
+
+---
+
+## License
 
 This project is licensed under the MIT License.
 
@@ -343,6 +376,6 @@ See LICENSE file for details.
 
 ---
 
-# Author
+## Author
 
 Developed independently as part of an internal automation initiative to improve employee referral workflows using the Microsoft Power Platform.
