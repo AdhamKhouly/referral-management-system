@@ -376,6 +376,9 @@ See LICENSE file for details.
 
 ---
 
-## Author
+## 🧑‍💻 Author
 
-Developed independently as part of an internal automation initiative to improve employee referral workflows using the Microsoft Power Platform.
+**Adham Elkhouly**
+
+- Analytics Specialist @ Nestlé
+- Developed independently as part of an internal automation initiative to improve employee referral workflows using the Microsoft Power Platform.
